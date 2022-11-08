@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class flashlight_code : MonoBehaviour
-{
+{   //Great code, nice
     // Start is called before the first frame update
     public GameObject ON;
     public GameObject OFF;
