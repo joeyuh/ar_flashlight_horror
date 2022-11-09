@@ -19,7 +19,7 @@ public class flashlight_code : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.F)){
             if(isON){
                 ON.SetActive(false);
                 OFF.SetActive(true);
