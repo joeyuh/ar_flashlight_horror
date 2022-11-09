@@ -17,7 +17,6 @@ namespace BasicNamespace
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 		public void OnMove(InputValue value)
 		{
@@ -60,11 +59,6 @@ namespace BasicNamespace
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-		
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
 		}
 
 		private void SetCursorState(bool newState)

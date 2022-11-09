@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class flashlight_code : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 mouse = Input.mousePosition;
+        Debug.Log("Mouse.x" + mouse.x + "Mouse.y" +mouse.y);
         if (Input.GetKeyDown(KeyCode.F)){
             if(isON){
                 ON.SetActive(false);
