@@ -732,6 +732,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ON: {fileID: 272034364}
   OFF: {fileID: 531541527}
+  flashlight: {fileID: 222032689}
+  player: {fileID: 2028674814}
+  horizontal: 40
+  vertical: 15
 --- !u!4 &1445004209
 Transform:
   m_ObjectHideFlags: 0
@@ -853,6 +857,12 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
+--- !u!1 &2028674814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 5393215579111688471}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2084445384
 PrefabInstance:
   m_ObjectHideFlags: 0
