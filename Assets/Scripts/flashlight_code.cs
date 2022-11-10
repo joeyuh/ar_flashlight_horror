@@ -18,12 +18,14 @@ public class flashlight_code : MonoBehaviour
 
     private bool isON;
 
-    private Vector2 _center = new Vector2(Screen.width / 2, Screen.height / 2);
+    private Vector2 _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
     private Vector3 Angle(Vector3 mouse)
     {
         if (mouse.x < 0) mouse.x = 0;
         if (mouse.y < 0) mouse.y = 0;
+        if (mouse.x > Screen.width) mouse.x = Screen.width;
+        if (mouse.y > Screen.height) mouse.y = Screen.height;
         mouse.x -= _center.x;
         mouse.y -= _center.y;
         mouse.x /= _center.x;

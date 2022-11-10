@@ -735,7 +735,7 @@ MonoBehaviour:
   flashlight: {fileID: 222032689}
   player: {fileID: 2028674814}
   horizontal: 40
-  vertical: 15
+  vertical: 20
 --- !u!4 &1445004209
 Transform:
   m_ObjectHideFlags: 0
