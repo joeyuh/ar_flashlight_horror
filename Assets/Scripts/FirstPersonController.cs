@@ -101,6 +101,46 @@ namespace BasicNamespace
 		private void CameraRotation()
 		{
 			Vector3 mouse = Input.mousePosition;
+
+			if (mouse.x <= 0) {		//left
+
+				_rotationVelocity = -0.01f * RotationSpeed;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}
+			else if (mouse.x >= Screen.width) {		//right
+
+				_rotationVelocity = 0.01f * RotationSpeed;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}
+			
+			if (mouse.y <= 0) {		//down
+
+				_cinemachineTargetPitch += 0.01f * RotationSpeed;
+
+				// clamp our pitch rotation
+				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+				// Update Cinemachine camera target pitch
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
+			}
+			else if (mouse.y >= Screen.height) {		//up
+
+				_cinemachineTargetPitch += -0.01f * RotationSpeed;
+
+				// clamp our pitch rotation
+				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+				// Update Cinemachine camera target pitch
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
+			}
 		}
 
 		private void Move()
