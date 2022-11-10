@@ -104,7 +104,7 @@ namespace BasicNamespace
 
 			if (mouse.x <= 0) {		//left
 
-				_rotationVelocity = -0.01f * RotationSpeed;
+				_rotationVelocity = -0.1f * RotationSpeed;
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
@@ -112,7 +112,7 @@ namespace BasicNamespace
 			}
 			else if (mouse.x >= Screen.width) {		//right
 
-				_rotationVelocity = 0.01f * RotationSpeed;
+				_rotationVelocity = 0.1f * RotationSpeed;
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
@@ -121,7 +121,7 @@ namespace BasicNamespace
 			
 			if (mouse.y <= 0) {		//down
 
-				_cinemachineTargetPitch += 0.01f * RotationSpeed;
+				_cinemachineTargetPitch += 0.1f * RotationSpeed;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -132,7 +132,7 @@ namespace BasicNamespace
 			}
 			else if (mouse.y >= Screen.height) {		//up
 
-				_cinemachineTargetPitch += -0.01f * RotationSpeed;
+				_cinemachineTargetPitch += -0.1f * RotationSpeed;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
