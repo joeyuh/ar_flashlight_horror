@@ -198,7 +198,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 4
   SprintSpeed: 6
-  RotationSpeed: 1
+  RotationSpeed: 0.75
+  RotationSpeedMax: 1
+  RotationalAcceleration: 0.00002
   SpeedChangeRate: 10
   JumpHeight: 1.2
   Gravity: -15
@@ -230,7 +232,6 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   analogMovement: 0
-  cursorLocked: 1
   cursorInputForLook: 1
 --- !u!114 &8616685848737228376
 MonoBehaviour:
