@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace StarterAssets
+namespace BasicNamespace
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class BasicInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
@@ -17,10 +17,7 @@ namespace StarterAssets
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
-
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
@@ -43,9 +40,7 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
-#endif
-
-
+		
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -64,11 +59,6 @@ namespace StarterAssets
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
-		}
-		
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
 		}
 
 		private void SetCursorState(bool newState)

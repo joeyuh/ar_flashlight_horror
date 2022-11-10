@@ -1,14 +1,9 @@
 ﻿using UnityEngine;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-using UnityEngine.InputSystem;
-#endif
 
-namespace StarterAssets
+namespace BasicNamespace
 {
 	[RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-	[RequireComponent(typeof(PlayerInput))]
-#endif
+
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
@@ -18,6 +13,10 @@ namespace StarterAssets
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
+		[Tooltip("Max Rotation speed of the character")]
+		public float RotationGainMax = 0.015f;
+		[Tooltip("Rotation acceleration of the character")]
+		public float RotationalAcceleration = 0.03f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
@@ -59,32 +58,13 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
-
-		// timeout deltatime
-		private float _jumpTimeoutDelta;
-		private float _fallTimeoutDelta;
-
-	
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		private PlayerInput _playerInput;
-#endif
+		private float _speedGain = 0.0f;
+		
 		private CharacterController _controller;
-		private StarterAssetsInputs _input;
+		private BasicInputs _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
-
-		private bool IsCurrentDeviceMouse
-		{
-			get
-			{
-				#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-				return _playerInput.currentControlScheme == "KeyboardMouse";
-				#else
-				return false;
-				#endif
-			}
-		}
 
 		private void Awake()
 		{
@@ -98,16 +78,10 @@ namespace StarterAssets
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-			_playerInput = GetComponent<PlayerInput>();
-#else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
+			_input = GetComponent<BasicInputs>();
+			
 
 			// reset our timeouts on start
-			_jumpTimeoutDelta = JumpTimeout;
-			_fallTimeoutDelta = FallTimeout;
 		}
 
 		private void Update()
@@ -130,15 +104,31 @@ namespace StarterAssets
 		}
 
 		private void CameraRotation()
-		{
-			// if there is an input
-			if (_input.look.sqrMagnitude >= _threshold)
+		{ 
+			Vector3 mouse = Input.mousePosition;
+
+			if (mouse.x <= 0) {		//left
+				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
+				_rotationVelocity = -0.1f * RotationSpeed - _speedGain;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}
+			else if (mouse.x >= Screen.width) {		//right
+				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
+				_rotationVelocity = 0.1f * RotationSpeed + _speedGain;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}else
 			{
-				//Don't multiply mouse input by Time.deltaTime
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
-				
-				_cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-				_rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
+				_speedGain = 0.0f;
+			}
+			
+			if (mouse.y <= 0) {		//down
+				_cinemachineTargetPitch += 0.02f * RotationSpeed;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -146,8 +136,15 @@ namespace StarterAssets
 				// Update Cinemachine camera target pitch
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
-				// rotate the player left and right
-				transform.Rotate(Vector3.up * _rotationVelocity);
+			}
+			else if (mouse.y >= Screen.height) {		//up
+				_cinemachineTargetPitch += -0.02f * RotationSpeed;
+				// clamp our pitch rotation
+				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+				// Update Cinemachine camera target pitch
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
 			}
 		}
 
@@ -202,9 +199,6 @@ namespace StarterAssets
 		{
 			if (Grounded)
 			{
-				// reset the fall timeout timer
-				_fallTimeoutDelta = FallTimeout;
-
 				// stop our velocity dropping infinitely when grounded
 				if (_verticalVelocity < 0.0f)
 				{
@@ -212,29 +206,14 @@ namespace StarterAssets
 				}
 
 				// Jump
-				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+				if (_input.jump)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 				}
-
-				// jump timeout
-				if (_jumpTimeoutDelta >= 0.0f)
-				{
-					_jumpTimeoutDelta -= Time.deltaTime;
-				}
 			}
 			else
 			{
-				// reset the jump timeout timer
-				_jumpTimeoutDelta = JumpTimeout;
-
-				// fall timeout
-				if (_fallTimeoutDelta >= 0.0f)
-				{
-					_fallTimeoutDelta -= Time.deltaTime;
-				}
-
 				// if we are not grounded, do not jump
 				_input.jump = false;
 			}
