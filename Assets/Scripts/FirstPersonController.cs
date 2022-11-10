@@ -13,6 +13,10 @@ namespace BasicNamespace
 		public float SprintSpeed = 6.0f;
 		[Tooltip("Rotation speed of the character")]
 		public float RotationSpeed = 1.0f;
+		[Tooltip("Max Rotation speed of the character")]
+		public float RotationGainMax = 0.015f;
+		[Tooltip("Rotation acceleration of the character")]
+		public float RotationalAcceleration = 0.03f;
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
@@ -54,6 +58,7 @@ namespace BasicNamespace
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+		private float _speedGain = 0.0f;
 		
 		private CharacterController _controller;
 		private BasicInputs _input;
@@ -99,8 +104,48 @@ namespace BasicNamespace
 		}
 
 		private void CameraRotation()
-		{
-			Vector3 mouse = Input.mousePosition;	
+		{ 
+			Vector3 mouse = Input.mousePosition;
+
+			if (mouse.x <= 0) {		//left
+				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
+				_rotationVelocity = -0.1f * RotationSpeed - _speedGain;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}
+			else if (mouse.x >= Screen.width) {		//right
+				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
+				_rotationVelocity = 0.1f * RotationSpeed + _speedGain;
+
+				// rotate the player left and right
+				transform.Rotate(Vector3.up * _rotationVelocity);
+
+			}else
+			{
+				_speedGain = 0.0f;
+			}
+			
+			if (mouse.y <= 0) {		//down
+				_cinemachineTargetPitch += 0.02f * RotationSpeed;
+
+				// clamp our pitch rotation
+				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+				// Update Cinemachine camera target pitch
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
+			}
+			else if (mouse.y >= Screen.height) {		//up
+				_cinemachineTargetPitch += -0.02f * RotationSpeed;
+				// clamp our pitch rotation
+				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+
+				// Update Cinemachine camera target pitch
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+
+			}
 		}
 
 		private void Move()
