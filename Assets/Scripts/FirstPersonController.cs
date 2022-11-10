@@ -100,7 +100,7 @@ namespace BasicNamespace
 
 		private void CameraRotation()
 		{
-			
+			Vector3 mouse = Input.mousePosition;	
 		}
 
 		private void Move()
