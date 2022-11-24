@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class flashlight_code : MonoBehaviour
 {
@@ -8,13 +10,19 @@ public class flashlight_code : MonoBehaviour
     public GameObject OFF;
     public GameObject flashlight;
     public GameObject player;
+    public Slider slider;
+    public Image sliderColor;
 
     [Header("Max angle")] public int horizontal = 45;
     public int vertical = 15;
 
-    private bool isON;
+    [Header("Max time")] public float maxTime = 60f;
 
-    private Vector2 _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
+    private float _timeRemaining;
+
+    private bool _isOn;
+
+    private readonly Vector2 _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
     private Vector3 Angle(Vector3 mouse)
     {
@@ -35,9 +43,10 @@ public class flashlight_code : MonoBehaviour
 
     void Start()
     {
+        _timeRemaining = maxTime;
         ON.SetActive(false);
         OFF.SetActive(true);
-        isON = false;
+        _isOn = false;
     }
 
     // Update is called once per frame
@@ -46,21 +55,40 @@ public class flashlight_code : MonoBehaviour
         Vector3 mouse = Input.mousePosition;
         flashlight.transform.eulerAngles = Angle(mouse);
         
+        if (_timeRemaining > 0)
+        {
+            _timeRemaining -= Time.deltaTime;
+            slider.value = _timeRemaining / maxTime;
+            if (_timeRemaining < maxTime * 0.2f)
+            {
+                sliderColor.color = Color.red;
+            }
+
+        } else {
+            ON.SetActive(false);
+            OFF.SetActive(true);
+            _isOn = false;
+            _timeRemaining = 0;
+            slider.value = 0;
+            sliderColor.color = Color.black;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (isON)
+            if (_isOn)
             {
                 ON.SetActive(false);
                 OFF.SetActive(true);
             }
 
-            if (!isON)
+            if (!_isOn)
             {
                 ON.SetActive(true);
                 OFF.SetActive(false);
             }
 
-            isON = !isON;
+            _isOn = !_isOn;
         }
     }
 }
