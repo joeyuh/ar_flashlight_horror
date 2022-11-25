@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class flashlight_code : MonoBehaviour
+public class FlashlightCode : MonoBehaviour
 {
     //Great code, nice
     // Start is called before the first frame update
@@ -12,13 +12,21 @@ public class flashlight_code : MonoBehaviour
     public GameObject player;
     public Slider slider;
     public Image sliderColor;
-
+    public bool inRange;
+    
     [Header("Max angle")] public int horizontal = 45;
     public int vertical = 15;
 
     [Header("Max time")] public float maxTime = 60f;
 
     private float _timeRemaining;
+    
+    public float TimeRemaining
+    {
+        // get => _timeRemaining;
+        set => _timeRemaining = value;
+    }
+    
 
     private bool _isOn;
 
@@ -54,7 +62,7 @@ public class flashlight_code : MonoBehaviour
     {
         Vector3 mouse = Input.mousePosition;
         flashlight.transform.eulerAngles = Angle(mouse);
-        
+
         if (_timeRemaining > 0)
         {
             _timeRemaining -= Time.deltaTime;
@@ -63,8 +71,9 @@ public class flashlight_code : MonoBehaviour
             {
                 sliderColor.color = Color.red;
             }
-
-        } else {
+        }
+        else
+        {
             ON.SetActive(false);
             OFF.SetActive(true);
             _isOn = false;
