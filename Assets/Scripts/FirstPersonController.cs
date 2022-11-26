@@ -50,6 +50,8 @@ namespace BasicNamespace
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
 
+		public GameObject winningBlock;
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -63,6 +65,7 @@ namespace BasicNamespace
 		private CharacterController _controller;
 		private BasicInputs _input;
 		private GameObject _mainCamera;
+		private GameController _gameController;
 
 		private const float _threshold = 0.01f;
 
@@ -77,6 +80,7 @@ namespace BasicNamespace
 
 		private void Start()
 		{
+			_gameController = winningBlock.GetComponent<GameController>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<BasicInputs>();
 			
@@ -86,6 +90,7 @@ namespace BasicNamespace
 
 		private void Update()
 		{
+			if(_gameController.GameWin || _gameController.GameOver) return;
 			JumpAndGravity();
 			GroundedCheck();
 			Move();

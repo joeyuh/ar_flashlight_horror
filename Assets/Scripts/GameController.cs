@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour
     private bool _gameOver = false;
     private bool _gameWin = false;
 
+    public bool GameOver => _gameOver;
+    public bool GameWin => _gameWin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +40,8 @@ public class GameController : MonoBehaviour
 
         if (_gameWin)
         {
-            
         }
+
         if (!_flashlightCode.ON.activeSelf)
         {
             _darkTime += Time.deltaTime;
@@ -54,7 +57,7 @@ public class GameController : MonoBehaviour
             hintBox.text = "Game Over\nPress E to Restart";
             player.SetActive(false);
         }
-        
+
         float distance = Vector3.Distance(player.transform.position, winningBlock.transform.position);
         if (winningBlock.activeSelf && distance < pickupRange)
         {
@@ -62,6 +65,5 @@ public class GameController : MonoBehaviour
             hintBox.text = "You Win";
             player.SetActive(false);
         }
-
     }
 }

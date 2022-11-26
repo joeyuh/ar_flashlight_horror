@@ -8736,7 +8736,6 @@ MonoBehaviour:
   maxDarkTime: 5
   pickupRange: 5
   hintBox: {fileID: 846564191}
-  disabled: 0
 --- !u!4 &1794140439
 Transform:
   m_ObjectHideFlags: 0
@@ -11165,6 +11164,11 @@ PrefabInstance:
       propertyPath: BottomClamp
       value: -15
       objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
+        type: 3}
+      propertyPath: winningBlock
+      value: 
+      objectReference: {fileID: 1794140437}
     - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47,
         type: 3}
       propertyPath: RotationSpeed
