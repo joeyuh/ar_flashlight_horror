@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,23 +12,12 @@ public class GameController : MonoBehaviour
     public float pickupRange;
     public TextMeshProUGUI hintBox;
 
-    public bool disabled = false;
-    // Start is called before the first frame update
-
     private FlashlightCode _flashlightCode;
     private float _darkTime;
+    private bool _gameOver = false;
+    private bool _gameWin = false;
 
-    private void GameOver()
-    {
-        hintBox.text = "Game Over";
-        player.SetActive(false);
-    }
-
-    private void GameWon()
-    {
-        hintBox.text = "You Win";
-        player.SetActive(false);
-    }
+    // Start is called before the first frame update
     void Start()
     {
         _flashlightCode = player.GetComponent<FlashlightCode>();
@@ -36,6 +26,19 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_gameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Scene thisScene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(thisScene.name);
+            }
+        }
+
+        if (_gameWin)
+        {
+            
+        }
         if (!_flashlightCode.ON.activeSelf)
         {
             _darkTime += Time.deltaTime;
@@ -47,13 +50,17 @@ public class GameController : MonoBehaviour
 
         if (_darkTime > maxDarkTime)
         {
-            GameOver();
+            _gameOver = true;
+            hintBox.text = "Game Over\nPress E to Restart";
+            player.SetActive(false);
         }
         
         float distance = Vector3.Distance(player.transform.position, winningBlock.transform.position);
         if (winningBlock.activeSelf && distance < pickupRange)
         {
-            GameWon();
+            _gameWin = true;
+            hintBox.text = "You Win";
+            player.SetActive(false);
         }
 
     }
