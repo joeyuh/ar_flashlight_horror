@@ -1022,7 +1022,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1445004207}
   battery: {fileID: 163048434}
-  disabled: 0
   pickupRange: 2
 --- !u!4 &163048438 stripped
 Transform:
@@ -2635,7 +2634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1445004207}
   battery: {fileID: 201794290}
-  disabled: 0
   pickupRange: 2
 --- !u!4 &519405878 stripped
 Transform:
@@ -8704,6 +8702,56 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6dc9ec0952e1042c5a8cddc7c444f911, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9eb847ab97b24024588682c8601254cf, type: 3}
+--- !u!1 &1794140437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1794140439}
+  - component: {fileID: 1794140438}
+  m_Layer: 0
+  m_Name: Winning Block
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1794140438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794140437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0da106aaba6a444ae8119002daeaf19b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1445004207}
+  winningBlock: {fileID: 1794140437}
+  maxDarkTime: 5
+  pickupRange: 5
+  hintBox: {fileID: 846564191}
+  disabled: 0
+--- !u!4 &1794140439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794140437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.47, y: 0, z: 71.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1799717997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10102,7 +10150,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

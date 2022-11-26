@@ -5,7 +5,6 @@ public class BatteryPickup : MonoBehaviour
 {
     public GameObject player;
     public GameObject battery;
-    public bool disabled = false;
     public float pickupRange;
 
     private FlashlightCode _flashlightCode;
@@ -22,7 +21,7 @@ public class BatteryPickup : MonoBehaviour
     {
         float distance = Vector3.Distance(player.transform.position, battery.transform.position);
 
-        if (!disabled && distance < pickupRange)
+        if (battery.activeSelf && distance < pickupRange)
         {
             if (!_counted)
             {
@@ -33,7 +32,8 @@ public class BatteryPickup : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 _flashlightCode.TimeRemaining = _flashlightCode.maxTime;
-                disabled = true;
+                battery.SetActive(false);
+                _flashlightCode.inRangeCount--;
             }
         }
         else

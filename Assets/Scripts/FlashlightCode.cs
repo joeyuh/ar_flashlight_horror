@@ -75,15 +75,18 @@ public class FlashlightCode : MonoBehaviour
 
         if (_timeRemaining > 0)
         {
-            _timeRemaining -= Time.deltaTime;
-            slider.value = _timeRemaining / maxTime;
-            if (_timeRemaining < maxTime * 0.2f)
+            if (_isOn)
             {
-                sliderColor.color = Color.red;
-            }
-            else
-            {
-                sliderColor.color = Color.white;
+                _timeRemaining -= Time.deltaTime;
+                slider.value = _timeRemaining / maxTime;
+                if (_timeRemaining < maxTime * 0.2f)
+                {
+                    sliderColor.color = Color.red;
+                }
+                else
+                {
+                    sliderColor.color = Color.white;
+                }
             }
         }
         else
