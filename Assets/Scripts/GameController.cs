@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +13,7 @@ public class GameController : MonoBehaviour
     public float maxDarkTime;
     public float pickupRange;
     public TextMeshProUGUI hintBox;
+    public int maxSceneCount;
 
     private FlashlightCode _flashlightCode;
     private float _darkTime;
@@ -20,10 +23,15 @@ public class GameController : MonoBehaviour
     public bool GameOver => _gameOver;
     public bool GameWin => _gameWin;
 
+    private Scene _thisScene;
+    private int _sceneNumber;
+
     // Start is called before the first frame update
     void Start()
     {
+        _thisScene = SceneManager.GetActiveScene();
         _flashlightCode = player.GetComponent<FlashlightCode>();
+        _sceneNumber = Int32.Parse(_thisScene.name);
     }
 
     // Update is called once per frame
@@ -33,13 +41,20 @@ public class GameController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Scene thisScene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(thisScene.name);
+                SceneManager.LoadScene(_thisScene.name);
             }
         }
 
         if (_gameWin)
         {
+            if (_sceneNumber + 1 <= maxSceneCount)
+            {
+                hintBox.text = "You Win\nPress E to Load Next Level";
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    SceneManager.LoadScene((_sceneNumber + 1).ToString());
+                }
+            }
         }
 
         if (!_flashlightCode.ON.activeSelf)
@@ -51,7 +66,7 @@ public class GameController : MonoBehaviour
             _darkTime = 0f;
         }
 
-        if (_darkTime > maxDarkTime)
+        if (!_gameOver && _darkTime > maxDarkTime)
         {
             _gameOver = true;
             hintBox.text = "Game Over\nPress E to Restart";
@@ -59,7 +74,7 @@ public class GameController : MonoBehaviour
         }
 
         float distance = Vector3.Distance(player.transform.position, winningBlock.transform.position);
-        if (winningBlock.activeSelf && distance < pickupRange)
+        if (!_gameWin && winningBlock.activeSelf && distance < pickupRange)
         {
             _gameWin = true;
             hintBox.text = "You Win";
