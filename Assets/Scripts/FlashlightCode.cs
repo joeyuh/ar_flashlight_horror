@@ -81,6 +81,10 @@ public class FlashlightCode : MonoBehaviour
             {
                 sliderColor.color = Color.red;
             }
+            else
+            {
+                sliderColor.color = Color.white;
+            }
         }
         else
         {
