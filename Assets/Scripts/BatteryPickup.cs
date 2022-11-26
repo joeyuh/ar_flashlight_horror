@@ -5,11 +5,11 @@ public class BatteryPickup : MonoBehaviour
 {
     public GameObject player;
     public GameObject battery;
-    public TextMeshProUGUI hintBox;
     public bool disabled = false;
     public float pickupRange;
 
     private FlashlightCode _flashlightCode;
+    private bool _counted;
 
     // Start is called before the first frame update
     void Start()
@@ -24,20 +24,25 @@ public class BatteryPickup : MonoBehaviour
 
         if (!disabled && distance < pickupRange)
         {
-            _flashlightCode.inRange = true;
-            hintBox.text = "Press E to pickup the battery.";
+            if (!_counted)
+            {
+                _flashlightCode.inRangeCount++;
+                _counted = true;
+            }
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 _flashlightCode.TimeRemaining = _flashlightCode.maxTime;
                 disabled = true;
             }
         }
-
-        if (!_flashlightCode.inRange)
+        else
         {
-            hintBox.text = "";
+            if (_counted)
+            {
+                _flashlightCode.inRangeCount--;
+                _counted = false;
+            }
         }
-
-        _flashlightCode.inRange = false;
     }
 }

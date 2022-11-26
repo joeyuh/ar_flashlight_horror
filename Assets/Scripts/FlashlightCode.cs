@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ public class FlashlightCode : MonoBehaviour
     public GameObject player;
     public Slider slider;
     public Image sliderColor;
-    public bool inRange;
+    public TextMeshProUGUI hintBox;
+    public int inRangeCount;
     
     [Header("Max angle")] public int horizontal = 45;
     public int vertical = 15;
@@ -60,6 +62,14 @@ public class FlashlightCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inRangeCount > 0)
+        {
+            hintBox.text = "Press E to pickup the battery.";
+        }
+        else
+        {
+            hintBox.text = "";
+        }
         Vector3 mouse = Input.mousePosition;
         flashlight.transform.eulerAngles = Angle(mouse);
 
