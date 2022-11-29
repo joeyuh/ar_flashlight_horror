@@ -32,7 +32,7 @@ public class FlashlightCode : MonoBehaviour
 
     private bool _isOn;
 
-    private readonly Vector2 _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
+    private Vector2 _center;
 
     private Vector3 Angle(Vector3 mouse)
     {
@@ -53,6 +53,7 @@ public class FlashlightCode : MonoBehaviour
 
     void Start()
     {
+        _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
         _timeRemaining = maxTime;
         ON.SetActive(false);
         OFF.SetActive(true);
