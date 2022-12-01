@@ -114,15 +114,15 @@ namespace BasicNamespace
 
 			if (mouse.x <= 0) {		//left
 				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
-				_rotationVelocity = -0.5f * RotationSpeed - _speedGain;
+				_rotationVelocity = -0.1f * RotationSpeed - _speedGain;
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
 
 			}
-			else if (mouse.x >= Screen.width*0.99) {		//right
+			else if (mouse.x >= Screen.width) {		//right
 				if(_speedGain<RotationGainMax) _speedGain += RotationalAcceleration; 
-				_rotationVelocity = 0.5f * RotationSpeed + _speedGain;
+				_rotationVelocity = 0.1f * RotationSpeed + _speedGain;
 
 				// rotate the player left and right
 				transform.Rotate(Vector3.up * _rotationVelocity);
@@ -133,7 +133,7 @@ namespace BasicNamespace
 			}
 			
 			if (mouse.y <= 0) {		//down
-				_cinemachineTargetPitch += 0.10f * RotationSpeed;
+				_cinemachineTargetPitch += 0.02f * RotationSpeed;
 
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
@@ -142,8 +142,8 @@ namespace BasicNamespace
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
 			}
-			else if (mouse.y >= Screen.height*0.99) {		//up
-				_cinemachineTargetPitch += -0.10f * RotationSpeed;
+			else if (mouse.y >= Screen.height) {		//up
+				_cinemachineTargetPitch += -0.02f * RotationSpeed;
 				// clamp our pitch rotation
 				_cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 

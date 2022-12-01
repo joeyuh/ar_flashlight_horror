@@ -65,7 +65,7 @@ public class FlashlightCode : MonoBehaviour
     {
         if (inRangeCount > 0)
         {
-            hintBox.text = "Press X to pickup the battery.";
+            hintBox.text = "Press E to pickup the battery.";
         }
         else
         {
