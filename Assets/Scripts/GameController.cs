@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
         {
             if (_sceneNumber + 1 <= maxSceneCount)
             {
-                hintBox.text = "You Win\nPress E to Load Next Level";
+                hintBox.text = "You Win\nPress X to Load Next Level";
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     SceneManager.LoadScene((_sceneNumber + 1).ToString());
@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
         if (!_gameOver && _darkTime > maxDarkTime)
         {
             _gameOver = true;
-            hintBox.text = "Game Over\nPress E to Restart";
+            hintBox.text = "Game Over\nPress X to Restart";
             player.SetActive(false);
         }
 
