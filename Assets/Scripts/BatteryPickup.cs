@@ -28,7 +28,7 @@ public class BatteryPickup : MonoBehaviour
                 _flashlightCode.inRangeCount++;
                 _counted = true;
             }
-
+            
             if (Input.GetKeyDown(KeyCode.E))
             {
                 _flashlightCode.TimeRemaining = _flashlightCode.maxTime;
