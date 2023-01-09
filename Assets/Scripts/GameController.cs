@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//This is a merge conflict
 public class GameController : MonoBehaviour
 {
     public GameObject player;
