@@ -50,7 +50,8 @@ public class FlashlightCode : MonoBehaviour
         return new Vector3(-Mathf.Rad2Deg * Mathf.Sin(mouse.y) + p.x,
             Mathf.Rad2Deg * Mathf.Sin(mouse.x) + p.y, 0);
     }
-
+    
+    // Start up
     void Start()
     {
         _center = new Vector2(Screen.width / 2f, Screen.height / 2f);
