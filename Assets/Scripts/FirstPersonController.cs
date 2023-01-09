@@ -3,7 +3,7 @@
 namespace BasicNamespace
 {
 	[RequireComponent(typeof(CharacterController))]
-
+//merge conflict
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
