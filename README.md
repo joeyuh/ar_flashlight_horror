@@ -9,8 +9,8 @@ Use in conjunction with https://github.com/joeyuh/Remote_irProcessing for AR Har
 ![alt text](https://joeworld.xyz/wp-content/uploads/Screenshot-2023-01-23-at-22.02.09.png)
 
 ## Gameplay show case
-![alt text](https://joeworld.xyz/wp-content/uploads/ezgif.com-gif-maker.gif)
-![alt text](https://joeworld.xyz/wp-content/uploads/ezgif.com-gif-maker-2.gif)
+![](https://joeworld.xyz/wp-content/uploads/ezgif.com-gif-maker.gif)
+![](https://joeworld.xyz/wp-content/uploads/ezgif.com-gif-maker-2.gif)
 
 ## Group Members
 Joe Yu, Kevin Li, Zora Liu, Mark Chi, Haibo Sun, Harry Liu
