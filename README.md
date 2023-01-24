@@ -1,7 +1,7 @@
 # ar_flashlight_horror
 
 ## About
-Unity Horror Game
+Unity Augmented Reality Horror Game with a flashlight!
 
 Use in conjunction with https://github.com/joeyuh/Remote_irProcessing for AR Hardware support
 
