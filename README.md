@@ -5,7 +5,7 @@ Unity Augmented Reality Horror Game with a flashlight!
 
 Use in conjunction with https://github.com/joeyuh/Remote_irProcessing for AR Hardware support
 
-Project Video: https://youtu.be/L01KMkt3JiI
+Project Showcase Video: https://youtu.be/L01KMkt3JiI
 
 ## Gameplay show case
 ![](https://github.com/joeyuh/ar_flashlight_horror/blob/main/gameplay1.gif)
